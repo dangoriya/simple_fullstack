@@ -4,11 +4,11 @@
 
 ```bash
 # 1. Clone
-git clone <your-repo-url>
+git clone https://github.com/dilip-dangoriya/simple_fullstack.git
 cd simple_fullstack
 
 # 2. Run with Docker Compose
-docker-compose up --build
+docker compose up --build -d
 
 # Frontend → http://localhost:3000
 # Backend  → http://localhost:8000

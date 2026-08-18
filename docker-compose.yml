@@ -1,14 +1,12 @@
-version: "3.9"
-
 services:
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: backend
+    container_name: simple-backend
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "8051:8000"
     environment:
       - ENV=production
     healthcheck:
@@ -16,24 +14,24 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 10s
+      start_period: 15s
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8051}
     container_name: frontend
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "8050:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8051}
     depends_on:
       backend:
         condition: service_healthy
 
 networks:
   default:
-    name: fullstack_network
+    name: simple_fullstack_network
