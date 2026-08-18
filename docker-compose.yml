@@ -23,22 +23,19 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8051}
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-}
     container_name: frontend
     restart: unless-stopped
     ports:
       - "8050:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8051}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-}
+      - HOSTNAME=0.0.0.0
     depends_on:
       backend:
         condition: service_healthy
     networks:
       - dokploy-network
-
-# networks:
-#   default:
-#     name: simple_fullstack_network
 
 networks:
   dokploy-network:
