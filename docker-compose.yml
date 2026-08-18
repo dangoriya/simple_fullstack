@@ -15,6 +15,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 15s
+    networks:
+      - dokploy-network
 
   frontend:
     build:
@@ -31,6 +33,8 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    networks:
+      - dokploy-network
 
 # networks:
 #   default:
