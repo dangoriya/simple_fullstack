@@ -10,6 +10,7 @@ import AddAppModal from "./AddAppModal";
 import EditAppModal from "./EditAppModal";
 import AuthModal from "../auth/AuthModal";
 import { SafeIcon } from "../ui/SafeIcon";
+import GradientWaves from "../ui/GradientWaves";
 
 interface AppGalleryClientProps {
   initialApps?: AppItem[];
@@ -92,7 +93,7 @@ export default function AppGalleryClient({
   const isAdmin = currentUser.role === "admin-only";
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#151a28] via-[#0b0d14] to-[#0c0e17]">
+    <div className="flex min-h-screen bg-[#0d1017] relative overflow-hidden">
       {/* Sidebar */}
       <Sidebar
         currentUser={currentUser}
@@ -101,8 +102,34 @@ export default function AppGalleryClient({
         onCloseMobile={() => setIsMobileNavOpen(false)}
       />
 
-      {/* Main Content */}
-      <main className="flex-1 p-4 sm:p-8 lg:p-10 overflow-y-auto w-full">
+      {/* Main Content Workspace with Animated Gradient Waves Background */}
+      <main className="flex-1 p-4 sm:p-8 lg:p-10 overflow-y-auto w-full relative z-10">
+        {/* Animated Background Canvas */}
+        <div className="absolute inset-0 -z-10 opacity-35 pointer-events-none overflow-hidden">
+          <GradientWaves
+            horizonColor="#131722"
+            waveColor="#6D28D9"
+            crestColor="#34D399"
+            speed={0.4}
+            amplitude={2.5}
+            waveScale={0.6}
+            waveRatio={0.9}
+            swell={35}
+            turbulence={20}
+            tilt={1.11}
+            zoom={1.0}
+            height={5.5}
+            fogDepth={15}
+            detail="medium"
+            brightness={1.0}
+            opacity={0.6}
+            mouseInteraction={true}
+            parallaxStrength={0.5}
+            grain={true}
+            grainIntensity={0.04}
+          />
+        </div>
+
         <GalleryHeader
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
