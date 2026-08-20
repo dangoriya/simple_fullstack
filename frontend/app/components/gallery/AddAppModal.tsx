@@ -1,29 +1,41 @@
 "use client";
 
 import React, { useState } from "react";
-import { SafeIcon } from "../IconHelper";
-import { COLOR_PRESETS, ICON_OPTIONS } from "../../data/mockData";
+import { AccessLevel, AppItem } from "@/types";
+import { COLOR_PRESETS, ICON_OPTIONS } from "@/lib/constants";
+import { SafeIcon, normalizeIconName } from "../ui/SafeIcon";
 
-export default function AddAppModal({ isOpen, onClose, onAddApp }) {
+interface AddAppModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onAddApp: (newApp: AppItem) => void;
+}
+
+/**
+ * Add Application Modal Form (Admin Access Only)
+ */
+export default function AddAppModal({ isOpen, onClose, onAddApp }: AddAppModalProps) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [link, setLink] = useState("");
-    const [icon, setIcon] = useState("Bot");
+    const [icon, setIcon] = useState("");
     const [color, setColor] = useState("#10b981");
-    const [access, setAccess] = useState("all");
+    const [access, setAccess] = useState<AccessLevel>("all");
 
     if (!isOpen) return null;
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!title || !link) return;
 
-        const newApp = {
+        const normalized = normalizeIconName(icon) || "AppWindow";
+
+        const newApp: AppItem = {
             id: `app-${Date.now()}`,
             title,
             description: description || "Centralized launchpad application.",
             link,
-            icon,
+            icon: normalized,
             color,
             access,
         };
@@ -33,7 +45,7 @@ export default function AddAppModal({ isOpen, onClose, onAddApp }) {
         setTitle("");
         setDescription("");
         setLink("");
-        setIcon("Bot");
+        setIcon("");
         setColor("#10b981");
         setAccess("all");
         onClose();
@@ -88,7 +100,7 @@ export default function AddAppModal({ isOpen, onClose, onAddApp }) {
                         />
                     </div>
 
-                    {/* Link */}
+                    {/* Link URL */}
                     <div>
                         <label className="block text-xs font-semibold text-gray-300 mb-1.5">
                             Application Link (URL) *
@@ -103,61 +115,89 @@ export default function AddAppModal({ isOpen, onClose, onAddApp }) {
                         />
                     </div>
 
-                    {/* Choose Icon */}
+                    {/* Choose Icon Section */}
                     <div>
-                        <label className="block text-xs font-semibold text-gray-300 mb-1.5">
-                            Choose Icon
-                        </label>
-                        <div className="grid grid-cols-6 gap-2">
-                            {ICON_OPTIONS.map((opt) => (
-                                <button
-                                    key={opt.id}
-                                    type="button"
-                                    className={`aspect-square rounded-xl flex items-center justify-center transition-all ${
-                                        icon === opt.id
-                                            ? "bg-sky-500/20 border-2 border-sky-400 text-sky-400"
-                                            : "bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10 hover:text-white"
-                                    }`}
-                                    onClick={() => setIcon(opt.id)}
-                                    title={opt.label}
-                                >
-                                    <SafeIcon name={opt.id} size={20} />
-                                </button>
-                            ))}
+                        <div className="flex items-center justify-between mb-1.5">
+                            <label className="text-xs font-semibold text-gray-300">
+                                Choose Icon
+                            </label>
+                            <a
+                                href="https://lucide.dev/icons/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[11px] text-sky-400 hover:underline flex items-center gap-1"
+                            >
+                                Browse All Icons <SafeIcon name="ExternalLink" size={11} />
+                            </a>
+                        </div>
+
+                        {/* Preset Icon Grid */}
+                        <div className="grid grid-cols-6 gap-2 mb-2.5">
+                            {ICON_OPTIONS.map((opt) => {
+                                const isSelected = icon.trim().toLowerCase() === opt.id.toLowerCase();
+                                return (
+                                    <button
+                                        key={opt.id}
+                                        type="button"
+                                        className={`aspect-square rounded-xl flex items-center justify-center transition-all ${
+                                            isSelected
+                                                ? "bg-sky-500/20 border-2 border-sky-400 text-sky-400 scale-105 shadow-md"
+                                                : "bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10 hover:text-white"
+                                        }`}
+                                        onClick={() => setIcon(opt.id)}
+                                        title={opt.label}
+                                    >
+                                        <SafeIcon name={opt.id} size={20} />
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        {/* Custom Icon Name Field with minimal live icon preview */}
+                        <div className="relative flex items-center">
+                            {icon.trim() && (
+                                <div className="absolute left-3 text-sky-400 pointer-events-none flex items-center">
+                                    <SafeIcon name={icon} size={15} />
+                                </div>
+                            )}
+                            <input
+                                type="text"
+                                placeholder="Or paste icon name from lucide.dev (e.g. save, git-branch, trash-2)"
+                                className={`w-full py-2 bg-white/5 border border-white/12 focus:border-sky-400 rounded-xl text-white text-xs outline-none transition-all placeholder-gray-500 ${
+                                    icon.trim() ? "pl-9 pr-3.5" : "px-3.5"
+                                }`}
+                                value={icon}
+                                onChange={(e) => setIcon(e.target.value)}
+                            />
                         </div>
                     </div>
 
-                    {/* Choose Color */}
+                    {/* Main Accent Color Swatches */}
                     <div>
-                        <label className="block text-xs font-semibold text-gray-300 mb-1.5">
-                            Main Accent Color (Auto Gradient)
+                        <label className="block text-xs font-semibold text-gray-300 mb-2">
+                            Main Accent Color
                         </label>
-                        <div className="flex items-center gap-3">
-                            <input
-                                type="color"
-                                value={color}
-                                onChange={(e) => setColor(e.target.value)}
-                                className="w-9 h-9 border-0 rounded-lg cursor-pointer bg-transparent"
-                            />
-                            <div className="flex flex-wrap gap-2">
-                                {COLOR_PRESETS.map((p) => (
+                        <div className="flex flex-wrap items-center gap-3 py-1.5 px-1">
+                            {COLOR_PRESETS.map((p) => {
+                                const isSelected = color.toLowerCase() === p.hex.toLowerCase();
+                                return (
                                     <div
                                         key={p.hex}
-                                        className={`w-7 h-7 rounded-full cursor-pointer border-2 transition-transform hover:scale-110 ${
-                                            color.toLowerCase() === p.hex.toLowerCase()
-                                                ? "border-white scale-110 shadow-lg"
-                                                : "border-transparent"
+                                        className={`w-7 h-7 rounded-full cursor-pointer transition-all duration-200 ${
+                                            isSelected
+                                                ? "scale-125 border-2 border-white ring-2 ring-white/50 shadow-lg"
+                                                : "border border-transparent hover:scale-110 opacity-75 hover:opacity-100"
                                         }`}
                                         style={{ backgroundColor: p.hex }}
                                         onClick={() => setColor(p.hex)}
                                         title={p.name}
                                     />
-                                ))}
-                            </div>
+                                );
+                            })}
                         </div>
                     </div>
 
-                    {/* Access Permission */}
+                    {/* Access Control Dropdown */}
                     <div>
                         <label className="block text-xs font-semibold text-gray-300 mb-1.5">
                             Access Control
@@ -165,7 +205,7 @@ export default function AddAppModal({ isOpen, onClose, onAddApp }) {
                         <select
                             className="w-full px-3.5 py-2.5 bg-[#111420] border border-white/12 focus:border-sky-400 rounded-xl text-white text-sm outline-none"
                             value={access}
-                            onChange={(e) => setAccess(e.target.value)}
+                            onChange={(e) => setAccess(e.target.value as AccessLevel)}
                         >
                             <option value="all">All (Everyone / Guests)</option>
                             <option value="normal-user">Normal User & Admin</option>

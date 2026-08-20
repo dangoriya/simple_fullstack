@@ -1,10 +1,24 @@
 "use client";
 
 import React from "react";
-import { SafeIcon } from "../IconHelper";
+import { SafeIcon } from "../ui/SafeIcon";
 import GradientText from "../ui/GradientText";
 
-export default function GalleryHeader({ searchQuery, setSearchQuery, onToggleMobileNav }) {
+interface GalleryHeaderProps {
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
+    onToggleMobileNav: () => void;
+}
+
+/**
+ * Gallery Header Component
+ * Contains mobile drawer toggle, animated gradient workspace title, description, and live search bar.
+ */
+export default function GalleryHeader({
+    searchQuery,
+    setSearchQuery,
+    onToggleMobileNav
+}: GalleryHeaderProps) {
     return (
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             {/* Header Title & Mobile Toggle Container */}

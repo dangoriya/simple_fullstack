@@ -74,7 +74,7 @@ export default function AuthModal({ isOpen, onClose, currentRole, onSelectUser }
                         />
                         <div>
                             <div style={{ fontWeight: 600, fontSize: "14px", color: "#fff" }}>Normal User (Dev Profile)</div>
-                            <div style={{ fontSize: "12px", color: "#9ca3af" }}>Sees `all` & `normal-user` apps. Cannot add apps.</div>
+                            <div style={{ fontSize: "12px", color: "#9ca3af" }}>Sees `all` & `normal-user` apps.</div>
                         </div>
                     </div>
 

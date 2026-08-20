@@ -1,10 +1,21 @@
 "use client";
 
 import React from "react";
-import { SafeIcon } from "../IconHelper";
-import { MOCK_USERS } from "../../data/mockData";
+import { UserProfile, UserRole } from "@/types";
+import { MOCK_USERS } from "@/lib/constants";
+import { SafeIcon } from "../ui/SafeIcon";
 
-export default function AuthModal({ isOpen, onClose, currentRole, onSelectUser }) {
+interface AuthModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    currentRole: UserRole;
+    onSelectUser: (user: UserProfile) => void;
+}
+
+/**
+ * Auth Modal Component for role switching & testing
+ */
+export default function AuthModal({ isOpen, onClose, currentRole, onSelectUser }: AuthModalProps) {
     if (!isOpen) return null;
 
     return (
@@ -31,7 +42,7 @@ export default function AuthModal({ isOpen, onClose, currentRole, onSelectUser }
                 </p>
 
                 <div className="flex flex-col gap-3">
-                    {/* Guest */}
+                    {/* Guest Option */}
                     <div
                         onClick={() => {
                             onSelectUser(MOCK_USERS.guest);
@@ -52,7 +63,7 @@ export default function AuthModal({ isOpen, onClose, currentRole, onSelectUser }
                         </div>
                     </div>
 
-                    {/* Normal User */}
+                    {/* Normal User Option */}
                     <div
                         onClick={() => {
                             onSelectUser(MOCK_USERS.user);
@@ -75,7 +86,7 @@ export default function AuthModal({ isOpen, onClose, currentRole, onSelectUser }
                         </div>
                     </div>
 
-                    {/* Admin User */}
+                    {/* Admin User Option */}
                     <div
                         onClick={() => {
                             onSelectUser(MOCK_USERS.admin);

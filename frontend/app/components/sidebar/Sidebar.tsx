@@ -1,14 +1,31 @@
 "use client";
 
 import React from "react";
-import { SafeIcon } from "../IconHelper";
+import { UserProfile } from "@/types";
+import { SafeIcon } from "../ui/SafeIcon";
 
-export default function Sidebar({ currentUser, onOpenAuthModal, isMobileOpen, onCloseMobile }) {
-    const roleLabel = {
+interface SidebarProps {
+    currentUser: UserProfile;
+    onOpenAuthModal: () => void;
+    isMobileOpen: boolean;
+    onCloseMobile: () => void;
+}
+
+/**
+ * Sidebar Drawer Component
+ * Includes brand header, centered profile card, quick navigation links, and user role switcher.
+ */
+export default function Sidebar({
+    currentUser,
+    onOpenAuthModal,
+    isMobileOpen,
+    onCloseMobile
+}: SidebarProps) {
+    const roleLabelMap: Record<UserProfile['role'], string> = {
         guest: "Guest View",
         "normal-user": "Normal User",
         "admin-only": "Admin",
-    }[currentUser.role];
+    };
 
     return (
         <>
@@ -26,13 +43,11 @@ export default function Sidebar({ currentUser, onOpenAuthModal, isMobileOpen, on
                     isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
                 }`}
             >
-                {/* Brand Header with Glowing Multi-Color Text */}
+                {/* Brand Header */}
                 <div className="flex items-center justify-between mb-6">
-                    <h2 className="flex items-center gap-2.5 text-base font-black tracking-widest uppercase">
-                        <SafeIcon name="LayoutDashboard" size={19} className="text-emerald-400 filter drop-shadow-[0_0_10px_rgba(16,185,129,0.65)]" />
-                        <span className="bg-gradient-to-r from-emerald-400 via-sky-300 to-purple-400 bg-clip-text text-transparent filter drop-shadow-[0_0_15px_rgba(56,189,248,0.55)] drop-shadow-[0_0_25px_rgba(168,85,247,0.35)]">
-                            Dashboard
-                        </span>
+                    <h2 className="flex items-center gap-2.5 text-base font-extrabold tracking-widest text-white uppercase">
+                        <SafeIcon name="LayoutDashboard" size={19} className="text-emerald-400" />
+                        Dashboard
                     </h2>
                     <button
                         onClick={onCloseMobile}
@@ -43,9 +58,9 @@ export default function Sidebar({ currentUser, onOpenAuthModal, isMobileOpen, on
                     </button>
                 </div>
 
-                {/* Profile Section (No Box/Tile, Centered Layout) */}
+                {/* Profile Section (Centered Layout, No Box Container) */}
                 <div className="flex flex-col items-center text-center mb-6">
-                    {/* Row 1: Centered Profile Picture */}
+                    {/* Row 1: Centered Avatar */}
                     <img
                         src={currentUser.avatar}
                         alt={currentUser.name}
@@ -125,7 +140,7 @@ export default function Sidebar({ currentUser, onOpenAuthModal, isMobileOpen, on
                     </a>
                 </div>
 
-                {/* User Role Switcher at Bottom */}
+                {/* User Role Switcher */}
                 <div className="mt-auto pt-6">
                     <button
                         onClick={onOpenAuthModal}
@@ -133,7 +148,7 @@ export default function Sidebar({ currentUser, onOpenAuthModal, isMobileOpen, on
                     >
                         <span className="flex items-center gap-2">
                             <SafeIcon name="UserCheck" size={15} style={{ color: "#10b981" }} />
-                            {roleLabel}
+                            {roleLabelMap[currentUser.role]}
                         </span>
                         <SafeIcon name="ChevronRight" size={13} />
                     </button>

@@ -1,5 +1,9 @@
-// Mock Users for testing authentication and roles
-export const MOCK_USERS = {
+import { AppItem, ColorPreset, IconOption, UserProfile } from '../types';
+
+/**
+ * Mock User Profiles for role-based access testing
+ */
+export const MOCK_USERS: Record<'guest' | 'user' | 'admin', UserProfile> = {
     guest: {
         id: "guest",
         name: "Guest User",
@@ -26,8 +30,10 @@ export const MOCK_USERS = {
     }
 };
 
-// Initial applications matching reference image
-export const INITIAL_APPS = [
+/**
+ * Initial application gallery list
+ */
+export const INITIAL_APPS: AppItem[] = [
     {
         id: "app-1",
         title: "AI Studio",
@@ -75,8 +81,10 @@ export const INITIAL_APPS = [
     }
 ];
 
-// Available Preset Colors for Card Creation
-export const COLOR_PRESETS = [
+/**
+ * Color Presets for application card dynamic gradients
+ */
+export const COLOR_PRESETS: ColorPreset[] = [
     { name: "Emerald", hex: "#10b981" },
     { name: "Purple", hex: "#a855f7" },
     { name: "Cyan", hex: "#06b6d4" },
@@ -89,8 +97,10 @@ export const COLOR_PRESETS = [
     { name: "Orange", hex: "#f97316" }
 ];
 
-// Available Icons for Selection
-export const ICON_OPTIONS = [
+/**
+ * Icon Options for application creation
+ */
+export const ICON_OPTIONS: IconOption[] = [
     { id: "Bot", label: "AI Bot" },
     { id: "GitBranch", label: "Git / Source" },
     { id: "Cloud", label: "Cloud" },

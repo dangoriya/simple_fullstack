@@ -1,11 +1,17 @@
+import React from "react";
+import type { Metadata } from "next";
 import "./globals.css";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "App Workspace - Centralized Launchpad",
   description: "Centralized workspace app gallery for quick access based on user role.",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
       <body>{children}</body>
