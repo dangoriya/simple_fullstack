@@ -39,15 +39,14 @@ export default function Sidebar({
 
             {/* Sidebar Drawer Container */}
             <aside
-                className={`fixed lg:static top-0 left-0 bottom-0 z-50 w-72 bg-gradient-to-b from-[#131722] to-[#0d1017] border-r border-white/10 p-6 flex flex-col transition-transform duration-300 ease-in-out ${
-                    isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-                }`}
+                className={`fixed lg:static top-0 left-0 bottom-0 z-50 w-72 bg-gradient-to-b from-[#131722] to-[#0d1017] border-r border-white/10 p-6 flex flex-col transition-transform duration-300 ease-in-out ${isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+                    }`}
             >
                 {/* Brand Header */}
                 <div className="flex items-center justify-between mb-6">
                     <h2 className="flex items-center gap-2.5 text-base font-extrabold tracking-widest text-white uppercase">
                         <SafeIcon name="LayoutDashboard" size={19} className="text-emerald-400" />
-                        Dashboard
+                        My Dashboard
                     </h2>
                     <button
                         onClick={onCloseMobile}
