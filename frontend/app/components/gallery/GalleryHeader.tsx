@@ -43,7 +43,7 @@ export default function GalleryHeader({
                         </GradientText>
                     </h1>
                     <p className="text-xs sm:text-sm text-gray-400 mt-0.5 leading-snug">
-                        Centralized workspace app gallery for quick access based on user role.
+                        Centralized application gallery for quick access.
                     </p>
                 </div>
             </div>

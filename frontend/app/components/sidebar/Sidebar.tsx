@@ -45,8 +45,8 @@ export default function Sidebar({
                 {/* Brand Header */}
                 <div className="flex items-center justify-between mb-6">
                     <h2 className="flex items-center gap-2.5 text-base font-extrabold tracking-widest text-white uppercase">
-                        <SafeIcon name="LayoutDashboard" size={19} className="text-emerald-400" />
-                        My Dashboard
+                        <SafeIcon name="sprout" size={25} className="text-emerald-400" />
+                        Welcome
                     </h2>
                     <button
                         onClick={onCloseMobile}

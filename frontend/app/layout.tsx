@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "App Workspace - Centralized Launchpad",
-  description: "Centralized workspace app gallery for quick access based on user role.",
+  description: "Centralized application gallery for quick access.",
 };
 
 export default function RootLayout({
