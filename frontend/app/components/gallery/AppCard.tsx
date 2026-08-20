@@ -34,8 +34,8 @@ export default function AppCard({ app, userRole, onEdit, onDelete }: AppCardProp
             className="app-card-container group relative rounded-2xl p-4 sm:p-6 flex flex-col justify-between min-h-[160px] sm:min-h-[210px] overflow-hidden"
             style={cardStyle}
         >
-            {/* Top Bar: Admin Action Controls (Edit/Delete with separator) & Access Permission Badge */}
-            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex items-center gap-2 z-10">
+            {/* Top Bar: Admin Action Controls & Access Permission Badge below */}
+            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex flex-col items-end gap-1.5 z-10">
                 {isAdmin && (onEdit || onDelete) && (
                     <div className="flex items-center gap-1.5 bg-black/50 backdrop-blur-md px-2 py-1 rounded-lg border border-white/15 opacity-90 group-hover:opacity-100 transition-opacity">
                         {onEdit && (
@@ -71,7 +71,7 @@ export default function AppCard({ app, userRole, onEdit, onDelete }: AppCardProp
                 )}
 
                 {isAdmin && app.access !== "all" && (
-                    <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-black/40 border border-white/15 text-gray-300">
+                    <span className="text-[10px] font-medium tracking-wide px-2 py-0.5 rounded-md bg-white/10 text-gray-300 border border-white/10 backdrop-blur-sm shadow-xs">
                         {app.access === "admin-only" ? "Admin" : "Users"}
                     </span>
                 )}
