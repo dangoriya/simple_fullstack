@@ -19,3 +19,5 @@ Thumbs.db
 # Custom test
 *-test.*
 *-tmp.*
+.uv/
+
