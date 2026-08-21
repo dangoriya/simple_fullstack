@@ -14,10 +14,10 @@ export const MOCK_USERS: Record<'guest' | 'user' | 'admin', UserProfile> = {
     },
     user: {
         id: "user-1",
-        name: "Dev Profile",
-        email: "info@iprofile.com",
+        name: "Dilip Dangoriya",
+        email: "dilipdangoriya@gmail.com",
         role: "normal-user",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120&q=80",
+        avatar: "/images/profile.png",
         siteUrl: "https://iprofile.com"
     },
     admin: {
