@@ -27,5 +27,5 @@ For standalone local development without Docker:
 ---
 ## Testing Purpose
 - check PR
-- check PR comment
+- check PR
 - check PR block fix 
