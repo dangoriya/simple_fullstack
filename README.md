@@ -23,3 +23,9 @@ For standalone local development without Docker:
 
 * 🎨 **Frontend Setup (`pnpm`)**: See [`frontend/DEVELOPMENT.md`](./frontend/DEVELOPMENT.md) for Next.js and `pnpm` setup instructions.
 * ⚡ **Backend Setup (`uv`)**: See [`backend/DEVELOPMENT.md`](./backend/DEVELOPMENT.md) for FastAPI and `uv` package manager setup instructions.
+
+---
+## Testing Purpose
+- check PR
+- check PR
+- check PR block fix 
